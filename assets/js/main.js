@@ -191,8 +191,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".php-email-form");
   if (!form) return;
 
-  form.addEventListener("submit", function (e) {
+  let emailjsLoaded = false;
+
+  function loadEmailJS() {
+    return new Promise((resolve) => {
+      if (emailjsLoaded) {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+      script.onload = () => {
+        emailjs.init("kLZq69eLEqqI1qTL_"); // Your public key here
+        emailjsLoaded = true;
+        resolve();
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  form.addEventListener("focusin", () => {
+    loadEmailJS();
+  }, { once: true });
+
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
+
+    await loadEmailJS();
 
     const loading = form.querySelector(".loading");
     const errorMessage = form.querySelector(".error-message");
@@ -219,7 +244,8 @@ document.addEventListener("DOMContentLoaded", function () {
           sentMessage.style.display = "block";
           form.reset();
         });
-      }, (error) => {
+      })
+      .catch((error) => {
         requestAnimationFrame(() => {
           loading.style.display = "none";
           errorMessage.innerText = "Une erreur s'est produite. Veuillez réessayer.";
@@ -229,3 +255,4 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
