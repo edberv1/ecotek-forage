@@ -93,15 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       behavior: 'smooth'
     }));
   }
-
-  /**
-   * Initiate glightbox
-   */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
-
-
+ 
   /**
    * Init swiper slider with 1 slide at once in desktop view
    */
@@ -157,10 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /**
-   * Initiate pURE cOUNTER
-   */
-  new PureCounter();
+
 
   /**
    * Animation on scroll function and init
