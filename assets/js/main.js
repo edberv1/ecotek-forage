@@ -13,9 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Preloader
   const preloader = document.querySelector('#preloader');
-  if (preloader) {
-    window.addEventListener('load', () => preloader.remove());
-  }
+
+if (preloader) {
+  window.addEventListener('load', () => {
+    preloader.remove();
+  });
+
+  // Failsafe: remove preloader after 1s max
+  setTimeout(() => {
+    if (document.body.contains(preloader)) {
+      preloader.remove();
+    }
+  }, 1000);
+}
 
   // Mobile nav toggle
   const mobileNavShow = document.querySelector('.mobile-nav-show');
