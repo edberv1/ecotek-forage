@@ -11,21 +11,16 @@ window.addEventListener('scroll', () => {
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 
-  // Preloader
+  /**
+   * Preloader
+   */
   const preloader = document.querySelector('#preloader');
-
-if (preloader) {
-  window.addEventListener('load', () => {
-    preloader.remove();
-  });
-
-  // Failsafe: remove preloader after 1s max
-  setTimeout(() => {
-    if (document.body.contains(preloader)) {
+  if (preloader) {
+    window.addEventListener('load', () => {
       preloader.remove();
-    }
-  }, 1000);
-}
+    });
+  }
+
 
   // Mobile nav toggle
   const mobileNavShow = document.querySelector('.mobile-nav-show');
@@ -147,16 +142,18 @@ if (preloader) {
   });
 
   // AOS animation
-  window.addEventListener('load', () => {
+  function aos_init() {
     AOS.init({
-      duration: 600,
-      easing: 'ease-out-cubic',
+      duration: 800,
+      easing: 'slide',
       once: true,
-      mirror: false,
-      throttleDelay: 150,
-      debounceDelay: 100
+      mirror: false
     });
+  }
+  window.addEventListener('load', () => {
+    aos_init();
   });
+
 
 });
 

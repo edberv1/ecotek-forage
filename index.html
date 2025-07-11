@@ -25,16 +25,17 @@
   <!-- Vendor CSS Files - deferred -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
   <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'" />
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
-<link href="assets/css/main.css" rel="stylesheet" media="print" onload="this.media='all'" />
+
   <!-- Fallback for no JS -->
   <noscript>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-    <link rel="preload" rel="stylesheet" href="assets/css/main.css">
   </noscript>
 
   <!-- Main CSS - not deferred (contains critical styles) -->
@@ -923,13 +924,18 @@
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
-    <script src="assets/vendor/aos/aos.js" defer></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js" defer></script>
-  
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function () {
+        emailjs.init("kLZq69eLEqqI1qTL_"); // Replace this with your actual public key from EmailJS
+      })();
+    </script>
   </body>
 </html>
