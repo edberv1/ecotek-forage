@@ -58,3 +58,4 @@ url("./fonts/bootstrap-icons.woff?24e3eb84d0bcaf83d77f904c78ac1f47") format("wof
 .bi-arrow-up-short::before { content: "\f145"; }
 .bi-brightness-high-fill::before { content: "\f1d1"; }
 .bi-brightness-high::before { content: "\f1d2"; }
+.bi-phone::before { content: "\f4e7"; }
