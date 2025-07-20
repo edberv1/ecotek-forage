@@ -14,12 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Preloader
    */
-  const preloader = document.querySelector('#preloader');
-  if (preloader) {
-    window.addEventListener('load', () => {
-      preloader.remove();
-    });
-  }
+  window.addEventListener("load", () => {
+  setTimeout(() => {
+    const preloader = document.getElementById("preloader");
+    if (preloader) preloader.style.display = "none";
+  }, 1000); // always hides after 3s max
+});
+
 
 
   // Mobile nav toggle
