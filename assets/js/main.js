@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     const preloader = document.getElementById("preloader");
     if (preloader) preloader.style.display = "none";
-  }, 1000); // always hides after 3s max
+  }, 100); // always hides after 3s max
 });
 
 
