@@ -17,6 +17,7 @@
   scroll-behavior: smooth;
 }
 
+
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -189,7 +190,7 @@ section {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
-#preloader {
+/* #preloader {
   position: fixed;
   inset: 0;
   z-index: 999999;
@@ -210,9 +211,9 @@ section {
   height: 60px;
   -webkit-animation: animate-preloader 1.5s linear infinite;
   animation: animate-preloader 1.5s linear infinite;
-}
+} */
 
-@-webkit-keyframes animate-preloader {
+/* @-webkit-keyframes animate-preloader {
   0% {
     transform: rotate(0deg);
   }
@@ -230,7 +231,7 @@ section {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 /*--------------------------------------------------------------
 # Header
@@ -1253,7 +1254,7 @@ section {
 --------------------------------------------------------------*/
 .footer {
   color: #fff;
-  background: url("../img/footer.jpg") top center no-repeat;
+  background: url("../img/footer.webp") top center no-repeat;
   background-size: cover;
   font-size: 14px;
   padding: 80px 0 60px 0;
