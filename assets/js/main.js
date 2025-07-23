@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
       message: form.message.value,
     };
 
-    emailjs.send("service_gqcoiti", "template_weqg3uf", formData)
+    emailjs.send("service_j9xt0wm", "template_weqg3uf", formData)
       .then(() => {
         requestAnimationFrame(() => {
           loading.style.display = "none";
