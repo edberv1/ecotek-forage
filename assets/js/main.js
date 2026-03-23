@@ -1,126 +1,166 @@
-// Sticky header on scroll
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('header');
-  if (window.scrollY > 50) {
-    header.classList.add('header-scrolled');
-  } else {
-    header.classList.remove('header-scrolled');
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
+  const header = document.getElementById("header");
+  if (header) {
+    const onHeaderScroll = () => {
+      header.classList.toggle("header-scrolled", window.scrollY > 50);
+    };
 
+    onHeaderScroll();
+    window.addEventListener("scroll", onHeaderScroll, { passive: true });
+  }
 
+  const mobileNavShow = document.querySelector(".mobile-nav-show");
+  const mobileNavHide = document.querySelector(".mobile-nav-hide");
+  const mobileNavToggles = document.querySelectorAll(".mobile-nav-toggle");
 
+  function mobileNavToggle() {
+    document.body.classList.toggle("mobile-nav-active");
 
-  // Mobile nav toggle
-  const mobileNavShow = document.querySelector('.mobile-nav-show');
-  const mobileNavHide = document.querySelector('.mobile-nav-hide');
+    if (mobileNavShow && mobileNavHide) {
+      mobileNavShow.classList.toggle("d-none");
+      mobileNavHide.classList.toggle("d-none");
+      const expanded = !mobileNavShow.classList.contains("d-none");
+      mobileNavShow.setAttribute("aria-expanded", String(expanded));
+      mobileNavHide.setAttribute("aria-expanded", String(!expanded));
+    }
+  }
 
-  document.querySelectorAll('.mobile-nav-toggle').forEach(el => {
-    el.addEventListener('click', function (event) {
+  mobileNavToggles.forEach((el) => {
+    el.addEventListener("click", (event) => {
       event.preventDefault();
       mobileNavToggle();
     });
-  });
 
-  function mobileNavToggle() {
-    document.body.classList.toggle('mobile-nav-active');
-    mobileNavShow.classList.toggle('d-none');
-    mobileNavHide.classList.toggle('d-none');
-  }
-
-  // Hide mobile nav on same-page/hash links
-  document.querySelectorAll('#navbar a').forEach(navbarlink => {
-    if (!navbarlink.hash) return;
-
-    let section = document.querySelector(navbarlink.hash);
-    if (!section) return;
-
-    navbarlink.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active')) {
+    el.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
         mobileNavToggle();
       }
     });
   });
 
-  // Mobile nav dropdowns
-  const navDropdowns = document.querySelectorAll('.navbar .dropdown > a');
-  navDropdowns.forEach(el => {
-    el.addEventListener('click', function (event) {
-      if (document.querySelector('.mobile-nav-active')) {
-        event.preventDefault();
-        this.classList.toggle('active');
-        this.nextElementSibling.classList.toggle('dropdown-active');
+  document.querySelectorAll("#navbar a").forEach((navbarLink) => {
+    if (!navbarLink.hash) return;
+    if (!document.querySelector(navbarLink.hash)) return;
 
-        const dropDownIndicator = this.querySelector('.dropdown-indicator');
-        dropDownIndicator.classList.toggle('bi-chevron-up');
-        dropDownIndicator.classList.toggle('bi-chevron-down');
+    navbarLink.addEventListener("click", () => {
+      if (document.body.classList.contains("mobile-nav-active")) {
+        mobileNavToggle();
       }
     });
   });
 
-  // Scroll top button
-  const scrollTop = document.querySelector('.scroll-top');
+  document.querySelectorAll(".navbar .dropdown > a").forEach((el) => {
+    el.addEventListener("click", function (event) {
+      if (!document.body.classList.contains("mobile-nav-active")) return;
+
+      event.preventDefault();
+      this.classList.toggle("active");
+      if (this.nextElementSibling) {
+        this.nextElementSibling.classList.toggle("dropdown-active");
+      }
+
+      const dropDownIndicator = this.querySelector(".dropdown-indicator");
+      if (dropDownIndicator) {
+        dropDownIndicator.classList.toggle("bi-chevron-up");
+        dropDownIndicator.classList.toggle("bi-chevron-down");
+      }
+    });
+  });
+
+  const scrollTop = document.querySelector(".scroll-top");
   if (scrollTop) {
     let ticking = false;
-
     const toggleScrollTop = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          scrollTop.classList.toggle('active', window.scrollY > 100);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      if (ticking) return;
+
+      window.requestAnimationFrame(() => {
+        scrollTop.classList.toggle("active", window.scrollY > 100);
+        ticking = false;
+      });
+      ticking = true;
     };
 
-    window.addEventListener('load', toggleScrollTop);
-    document.addEventListener('scroll', toggleScrollTop);
+    toggleScrollTop();
+    window.addEventListener("scroll", toggleScrollTop, { passive: true });
 
-    scrollTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
 
-  // Swiper sliders
-  new Swiper('.slides-1', {
+  const lazyBackgrounds = document.querySelectorAll(".lazy-bg[data-bg]");
+  if (lazyBackgrounds.length > 0) {
+    const applyBackground = (el) => {
+      const bg = el.getAttribute("data-bg");
+      if (!bg) return;
+
+      el.style.backgroundImage = `url(${bg})`;
+      el.removeAttribute("data-bg");
+      el.classList.remove("lazy-bg");
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            applyBackground(entry.target);
+            obs.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "200px 0px" }
+      );
+
+      lazyBackgrounds.forEach((el) => observer.observe(el));
+    } else {
+      lazyBackgrounds.forEach(applyBackground);
+    }
+  }
+
+  const initSwiper = (selector, options) => {
+    if (typeof window.Swiper !== "function") return;
+    if (!document.querySelector(selector)) return;
+    new window.Swiper(selector, options);
+  };
+
+  initSwiper(".slides-1", {
     speed: 600,
     loop: true,
     autoplay: {
       delay: 5000,
       disableOnInteraction: false
     },
-    slidesPerView: 'auto',
+    slidesPerView: "auto",
     pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
+      el: ".swiper-pagination",
+      type: "bullets",
       clickable: true
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
     }
   });
 
-  new Swiper('.slides-2', {
+  initSwiper(".slides-2", {
     speed: 600,
     loop: true,
     autoplay: {
       delay: 5000,
       disableOnInteraction: false
     },
-    slidesPerView: 'auto',
+    slidesPerView: "auto",
     pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
+      el: ".swiper-pagination",
+      type: "bullets",
       clickable: true
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
     },
     breakpoints: {
       320: {
@@ -134,42 +174,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // AOS animation
-  function aos_init() {
-    AOS.init({
-      duration: 800,
-      easing: 'slide',
-      once: true,
-      mirror: false
+  if (typeof window.AOS !== "undefined" && document.querySelector("[data-aos]")) {
+    window.addEventListener("load", () => {
+      window.AOS.init({
+        duration: 800,
+        easing: "slide",
+        once: true,
+        mirror: false
+      });
     });
   }
-  window.addEventListener('load', () => {
-    aos_init();
-  });
 
-
-});
-
-// Scrollspy for nav active link
-document.addEventListener("DOMContentLoaded", function () {
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll("#navbar a");
-  let scrollTicking = false;
+  if (sections.length > 0 && navLinks.length > 0) {
+    let scrollTicking = false;
 
-  function onScroll() {
-    if (!scrollTicking) {
+    const onScroll = () => {
+      if (scrollTicking) return;
+
       requestAnimationFrame(() => {
         const scrollY = window.pageYOffset + 120;
 
-        sections.forEach(current => {
+        sections.forEach((current) => {
           const sectionHeight = current.offsetHeight;
           const sectionTop = current.offsetTop;
           const sectionId = current.getAttribute("id");
 
           if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinks.forEach(link => {
+            navLinks.forEach((link) => {
               link.classList.remove("active");
-              if (link.getAttribute("href") === "#" + sectionId) {
+              if (link.getAttribute("href") === `#${sectionId}`) {
                 link.classList.add("active");
               }
             });
@@ -180,79 +215,87 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       scrollTicking = true;
-    }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 
-  window.addEventListener("scroll", onScroll);
-});
-
-// EmailJS contact form
-document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".php-email-form");
   if (!form) return;
 
   let emailjsLoaded = false;
 
-  function loadEmailJS() {
-    return new Promise((resolve) => {
-      if (emailjsLoaded) {
+  const loadEmailJS = () =>
+    new Promise((resolve, reject) => {
+      if (emailjsLoaded && window.emailjs) {
         resolve();
         return;
       }
+
       const script = document.createElement("script");
       script.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
+      script.async = true;
       script.onload = () => {
-        emailjs.init("kLZq69eLEqqI1qTL_"); // Your public key here
+        if (!window.emailjs) {
+          reject(new Error("EmailJS introuvable"));
+          return;
+        }
+
+        window.emailjs.init("kLZq69eLEqqI1qTL_");
         emailjsLoaded = true;
         resolve();
       };
+      script.onerror = () => reject(new Error("Chargement EmailJS impossible"));
       document.head.appendChild(script);
     });
-  }
 
-  form.addEventListener("focusin", () => {
-    loadEmailJS();
-  }, { once: true });
+  form.addEventListener(
+    "focusin",
+    () => {
+      loadEmailJS().catch(() => {});
+    },
+    { once: true }
+  );
 
-  form.addEventListener("submit", async function (e) {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    await loadEmailJS();
 
     const loading = form.querySelector(".loading");
     const errorMessage = form.querySelector(".error-message");
     const sentMessage = form.querySelector(".sent-message");
 
-    requestAnimationFrame(() => {
-      loading.style.display = "block";
+    if (loading) loading.style.display = "block";
+    if (errorMessage) {
+      errorMessage.textContent = "";
       errorMessage.style.display = "none";
-      sentMessage.style.display = "none";
-    });
+    }
+    if (sentMessage) sentMessage.style.display = "none";
 
-    const formData = {
-      prenom: form.prenom.value,
-      nom: form.nom.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      message: form.message.value,
-    };
+    try {
+      await loadEmailJS();
 
-    emailjs.send("service_ke7nlrq", "template_weqg3uf", formData)
-      .then(() => {
-        requestAnimationFrame(() => {
-          loading.style.display = "none";
-          sentMessage.style.display = "block";
-          form.reset();
-        });
-      })
-      .catch((error) => {
-        requestAnimationFrame(() => {
-          loading.style.display = "none";
-          errorMessage.innerText = "Une erreur s'est produite. Veuillez réessayer.";
-          errorMessage.style.display = "block";
-        });
-        console.error("EmailJS Error:", error);
-      });
+      const formData = {
+        prenom: form.prenom.value,
+        nom: form.nom.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        message: form.message.value
+      };
+
+      await window.emailjs.send("service_ke7nlrq", "template_weqg3uf", formData);
+
+      if (loading) loading.style.display = "none";
+      if (sentMessage) sentMessage.style.display = "block";
+      form.reset();
+    } catch (error) {
+      if (loading) loading.style.display = "none";
+      if (errorMessage) {
+        errorMessage.textContent = "Une erreur s'est produite. Veuillez réessayer.";
+        errorMessage.style.display = "block";
+      }
+      console.error("EmailJS Error:", error);
+    }
   });
 });
 

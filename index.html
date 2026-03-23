@@ -9,6 +9,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://www.ecotek-forage.ch/" />
   <link rel="alternate" hreflang="fr-CH" href="https://www.ecotek-forage.ch/" />
+  <meta name="theme-color" content="#87be68" />
 
   <!-- Favicon -->
   <link href="assets/img/logo.webp" rel="icon" type="image/webp" />
@@ -18,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preload" as="image" href="assets/img/hero2.webp" fetchpriority="high" />
 
   <!-- Preload & load Google Fonts async -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" />
@@ -112,13 +114,14 @@
 
 
   <body>
+    <a href="#main" class="skip-link">Aller au contenu principal</a>
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center" role="banner">
       <div
         class="container-fluid container-xl d-flex align-items-center justify-content-between"
       >
         <a href="index.html" class="logo d-flex align-items-center" aria-label="EcoTek-Forage - Accueil">
-          <img src="assets/img/logo.webp" alt="Logo EcoTek-Forage" width="150" height="150" />   
+          <img src="assets/img/logo.webp" alt="Logo EcoTek-Forage" width="150" height="150" decoding="async" />
         </a>
 
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list" aria-label="Ouvrir le menu" role="button" tabindex="0"></i>
@@ -172,13 +175,14 @@
           style="background-image: url(assets/img/hero2.webp)"
         ></div>
         <div
-          class="carousel-item"
-          style="background-image: url(assets/img/machine1.webp)"
+          class="carousel-item lazy-bg"
+          data-bg="assets/img/machine1.webp"
         ></div>
         <a
           class="carousel-control-prev"
           href="#hero-carousel"
           role="button"
+          aria-label="Image précédente"
           data-bs-slide="prev"
         >
           <span
@@ -191,6 +195,7 @@
           class="carousel-control-next"
           href="#hero-carousel"
           role="button"
+          aria-label="Image suivante"
           data-bs-slide="next"
         >
           <span
@@ -208,8 +213,8 @@
         <div class="container" data-aos="fade-up">
           <div class="row position-relative">
             <div
-              class="col-lg-7 about-img"
-              style="background-image: url(assets/img/about.webp)"
+              class="col-lg-7 about-img lazy-bg"
+              data-bg="assets/img/about.webp"
             ></div>
 
             <div class="col-lg-7">
@@ -269,10 +274,8 @@
                 <div class="row">
                   <div class="col-xl-5">
                     <div
-                      class="card-bg"
-                      style="
-                        background-image: url(assets/img/applications/home.webp);
-                      "
+                      class="card-bg lazy-bg"
+                      data-bg="assets/img/applications/home.webp"
                     ></div>
                   </div>
                   <div class="col-xl-7 d-flex align-items-center">
@@ -294,10 +297,8 @@
                 <div class="row">
                   <div class="col-xl-5">
                     <div
-                      class="card-bg"
-                      style="
-                        background-image: url(assets/img/applications/apartments.webp);
-                      "
+                      class="card-bg lazy-bg"
+                      data-bg="assets/img/applications/apartments.webp"
                     ></div>
                   </div>
                   <div class="col-xl-7 d-flex align-items-center">
@@ -319,10 +320,8 @@
                 <div class="row">
                   <div class="col-xl-5">
                     <div
-                      class="card-bg"
-                      style="
-                        background-image: url(assets/img/applications/commercial.webp);
-                      "
+                      class="card-bg lazy-bg"
+                      data-bg="assets/img/applications/commercial.webp"
                     ></div>
                   </div>
                   <div class="col-xl-7 d-flex align-items-center">
@@ -344,10 +343,8 @@
                 <div class="row">
                   <div class="col-xl-5">
                     <div
-                      class="card-bg"
-                      style="
-                        background-image: url(assets/img/applications/renovation.webp);
-                      "
+                      class="card-bg lazy-bg"
+                      data-bg="assets/img/applications/renovation.webp"
                     ></div>
                   </div>
                   <div class="col-xl-7 d-flex align-items-center">
@@ -479,8 +476,8 @@
         <div class="container" data-aos="fade-up">
           <div class="row justify-content-around gy-4">
             <div
-              class="col-lg-6 img-bg"
-              style="background-image: url(assets/img/machinery.webp)"
+              class="col-lg-6 img-bg lazy-bg"
+              data-bg="assets/img/machinery.webp"
               data-aos="zoom-in"
               data-aos-delay="100"
             ></div>
@@ -639,6 +636,7 @@
                     alt="Évaluation du site géothermique en Suisse"
                     class="img-fluid"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -676,7 +674,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="assets/img/drilling.webp" alt="Forage géothermique profond" class="img-fluid" loading="lazy" />
+                  <img src="assets/img/drilling.webp" alt="Forage géothermique profond" class="img-fluid" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -710,7 +708,7 @@
                   </ul>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 text-center">
-                  <img src="assets/img/heatpump.webp" alt="Intégration de pompe à chaleur géothermique" class="img-fluid" loading="lazy" />
+                  <img src="assets/img/heatpump.webp" alt="Intégration de pompe à chaleur géothermique" class="img-fluid" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -750,6 +748,7 @@
                     alt="Maintenance du système géothermique"
                     class="img-fluid"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -911,7 +910,7 @@
     <!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer" role="contentinfo">
+    <footer id="footer" class="footer lazy-bg" role="contentinfo" data-bg="assets/img/footer.webp">
       <div class="footer-content position-relative">
         <div class="container">
           <div class="row">
@@ -924,26 +923,28 @@
                   loading="lazy"
                   width="150"
                   height="150"
+                  decoding="async"
                 />
        
-
-                <p>
-                  Rives de la Broye 3<br />1530 Payerne, Vaud <br /><br />
-                  <div class="info-item">
-                    <i class="bi bi-telephone-fill"></i>  026 660 69 67
-                  </div>
-                  <div class="info-item">
-                    <i class="bi bi-phone"></i>   079 962 69 67
-                  </div>
-                  <strong>E-mail:</strong> info@ecotek-forage.ch<br />
-                  <a
-                    href="https://www.instagram.com/ecotek.forage/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="EcoTek-Forage sur Instagram"
-                    ><i class="bi bi-instagram" style="font-size: 2rem;"></i
-                  ></a>
-                </p>
+                <address class="footer-contact">
+                  Rives de la Broye 3<br />1530 Payerne, Vaud
+                </address>
+                <div class="info-item">
+                  <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+                  <a href="tel:+41266606967" aria-label="Appeler le 026 660 69 67">026 660 69 67</a>
+                </div>
+                <div class="info-item">
+                  <i class="bi bi-phone" aria-hidden="true"></i>
+                  <a href="tel:+41799626967" aria-label="Appeler le 079 962 69 67">079 962 69 67</a>
+                </div>
+                <p><strong>E-mail:</strong> <a href="mailto:info@ecotek-forage.ch">info@ecotek-forage.ch</a></p>
+                <a
+                  href="https://www.instagram.com/ecotek.forage/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="EcoTek-Forage sur Instagram"
+                  ><i class="bi bi-instagram" style="font-size: 2rem;" aria-hidden="true"></i
+                ></a>
               </div>
             </div>
             <!-- End footer info column-->
@@ -963,9 +964,9 @@
             <div class="col-lg-2 col-md-3 footer-links">
               <h4>CONFIDENTIALITÉ</h4>
               <ul>
-                <li><a href="imprimer.html" target="_blank" rel="noopener noreferrer">Imprimer</a></li>
+                <li><a href="imprimer.html">Imprimer</a></li>
                 <li>
-                  <a href="privacy.html" target="_blank" rel="noopener noreferrer"
+                  <a href="privacy.html"
                     >Politique De Confidentialité</a
                   >
                 </li>
@@ -976,16 +977,16 @@
              <div class="col-lg-2 col-md-3 footer-links">
               <h4>Enterprise de Forage Geothermique</h4>
                <ul>
-                <li><a>Vaud</a></li>
-                <li><a>Fribourg</a></li>
-                <li><a>Genève</a></li>
-                <li><a>Valais</a></li>
-                <li><a>Neuchâtel & Jura</a></li>
+                  <li><span>Vaud</span></li>
+                  <li><span>Fribourg</span></li>
+                  <li><span>Genève</span></li>
+                  <li><span>Valais</span></li>
+                  <li><span>Neuchâtel & Jura</span></li>
               </ul>
             </div>
 
             <div class="col-lg-1 col-md-3 footer-links">
-              <img  style="width: 150px; height: 150px" src="assets/img/certificate.jpg" alt="Certificat de conformité EcoTek-Forage" loading="lazy" width="150" height="150">
+              <img style="width: 150px; height: 150px" src="assets/img/certificate.jpg" alt="Certificat de conformité EcoTek-Forage" loading="lazy" width="150" height="150" decoding="async">
             </div>
 
              
@@ -1021,11 +1022,5 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js" defer></script>
-    <script>
-      (function () {
-        emailjs.init("kLZq69eLEqqI1qTL_"); // Replace this with your actual public key from EmailJS
-      })();
-    </script>
   </body>
 </html>

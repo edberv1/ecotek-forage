@@ -3,14 +3,23 @@
 
  <url>
   <loc>https://www.ecotek-forage.ch/</loc>
+  <lastmod>2026-03-23</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>1.0</priority>
  </url>
 
  <url>
   <loc>https://www.ecotek-forage.ch/privacy.html</loc>
+  <lastmod>2026-03-23</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.5</priority>
  </url>
 
  <url>
     <loc>https://www.ecotek-forage.ch/imprimer.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
  </url>
 
 </urlset>
