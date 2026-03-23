@@ -1,16 +1,6 @@
 {
   "redirects": [
     {
-      "source": "http://ecotek-forage.ch/:path*",
-      "destination": "https://www.ecotek-forage.ch/:path*",
-      "permanent": true
-    },
-    {
-      "source": "https://ecotek-forage.ch/:path*",
-      "destination": "https://www.ecotek-forage.ch/:path*",
-      "permanent": true
-    },
-    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
