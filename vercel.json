@@ -27,6 +27,10 @@
         {
           "key": "Permissions-Policy",
           "value": "geolocation=(), camera=(), microphone=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
         }
       ]
     }
@@ -36,6 +40,17 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "ecotek-forage.ch"
+        }
+      ],
+      "destination": "https://www.ecotek-forage.ch/:path*",
+      "permanent": true
     }
   ]
-} 
+}
